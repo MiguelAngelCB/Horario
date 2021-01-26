@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cursos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="none" *ngFor="let curso of getCursos()" (click)="verGrupos(curso)">
+    {{curso}}
+  </ion-item>
+</ion-content>

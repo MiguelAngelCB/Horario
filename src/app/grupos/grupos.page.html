@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-item>
+      <ion-back-button></ion-back-button>
+      <ion-title>Grupos</ion-title>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br/>
+  <ion-label>Cursos: {{curso}}</ion-label>
+  <br/>
+  <br/>
+  <ion-item lines="none" *ngFor="let grupo of getGrupos()" (click)="verHorario(grupo)" class="bg-forest">
+    {{grupo}}
+  </ion-item>
+</ion-content>

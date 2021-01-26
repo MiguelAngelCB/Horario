@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-item>
+      <ion-back-button></ion-back-button>
+      <ion-title>Horario</ion-title>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label>Grupo: {{grupo}}</ion-label>
+<!-- <ion-grid>
+  <ion-row>
+    <ion-col size="2">
+    </ion-col>
+    <ion-col *ngFor="let dia of dias" size="2" class="ion-text-center">
+    {{dia}}
+    </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let hora of horas;">
+    <ion-col size="2">
+      {{hora}}
+    </ion-col>
+    <ion-col *ngFor="let asig of asignaturas" size="2" class="ion-text-center" (click)="obtenerCompleto(asig)">
+      {{asig}}
+    </ion-col>
+  </ion-row>
+</ion-grid> -->
+<ion-grid>
+  <div>
+    <ion-row>
+      <ion-col size="2">
+      </ion-col>
+      <ion-col *ngFor="let dia of getDias()" size="2" class="ion-text-center">
+      {{dia}}
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="horaClases">
+    <div class="horasAsig">
+      <ion-row *ngFor="let hora of getHoras();" [ngClass]="(hora=='Recreo')?'horasClasesRecreo':'horasClasesRow'">
+        {{hora}}
+        <br/>
+        <ion-label *ngIf="hora!='Recreo'" >{{getSiguienteHora(hora)}}</ion-label>
+      </ion-row>
+    </div>
+    <div class="horasAsig" *ngFor="let dia of getDias()">
+      <ion-row *ngFor="let asig of getAsignaturas(dia)" (click)="getCompleto(asig)" class="horasAsigRow">
+        {{asig}}
+      </ion-row>
+    </div>
+  </div>
+  </ion-grid>
+</ion-content>
