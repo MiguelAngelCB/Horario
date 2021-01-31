@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router,NavigationExtras} from '@angular/router';
+import { DatosService } from '../core/services/datos.service';
 
 @Component({
   selector: 'app-grupos',
@@ -9,12 +10,19 @@ import {ActivatedRoute, Router,NavigationExtras} from '@angular/router';
 export class GruposPage implements OnInit {
   curso:string;
 
-  constructor(public router: Router, private rutaActivada: ActivatedRoute) {
-    this.rutaActivada.queryParams.subscribe((params) => {
-      this.curso = this.router.getCurrentNavigation().extras.state.curso;
-    });
+  constructor(public router: Router, private rutaActivada: ActivatedRoute,private datosService:DatosService) {
+      this.rutaActivada.queryParams.subscribe((params) => {
+        new Promise((resolve,reject)=>{
+          this.curso = this.router.getCurrentNavigation().extras.state.curso;
+          resolve(true);
+        }).then(
+          ()=>{
+            this.datosService.rellenarGrupos(this.curso);
+          }
+        ).catch();
+      });
   }
-
+  
   ngOnInit() {
   }
   
@@ -27,8 +35,8 @@ export class GruposPage implements OnInit {
     await this.router.navigate(["horario"],extrasNavegacion);
   }
 
-  getGrupos():Array<string>{
-    let grupos:Array<string>=["e1c","ac2","czx2"];
+  getGrupos(){
+    let grupos:any[]=this.datosService.getGrupos();
     return grupos;
   }
 }

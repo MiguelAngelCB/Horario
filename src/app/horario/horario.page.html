@@ -9,46 +9,27 @@
 
 <ion-content>
   <ion-label>Grupo: {{grupo}}</ion-label>
-<!-- <ion-grid>
-  <ion-row>
-    <ion-col size="2">
-    </ion-col>
-    <ion-col *ngFor="let dia of dias" size="2" class="ion-text-center">
-    {{dia}}
-    </ion-col>
-  </ion-row>
-  <ion-row *ngFor="let hora of horas;">
-    <ion-col size="2">
-      {{hora}}
-    </ion-col>
-    <ion-col *ngFor="let asig of asignaturas" size="2" class="ion-text-center" (click)="obtenerCompleto(asig)">
-      {{asig}}
-    </ion-col>
-  </ion-row>
-</ion-grid> -->
 <ion-grid>
-  <div>
-    <ion-row>
-      <ion-col size="2">
+  <ion-row class="encabezado">
+    <ion-col size="2" class="ion-text-center">
+      HORAS
+    </ion-col>
+    <ion-col *ngFor="let dia of getDias()" size="2" class="ion-text-center">
+    {{dia.nombre}}
+    </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let hora of getHoras();let i = index">
+      <ion-col size="2" class="ion-text-center horas">
+        {{hora.nombre}}
+        <br/>
+        {{getSiguienteHora(hora.nombre)}}
       </ion-col>
-      <ion-col *ngFor="let dia of getDias()" size="2" class="ion-text-center">
-      {{dia}}
+      <ion-col *ngFor="let asig of getAsignaturas(i)" size="2" class="ion-text-center asignaturas" (click)="getCompleto(asig)">
+        {{asig.nombre}}
+      </ion-col>
+      <ion-col size="12" class="ion-text-center" *ngIf="i==posicionRecreo-1" class="ion-text-center recreo">
+        RECREO
       </ion-col>
     </ion-row>
-  </div>
-  <div class="horaClases">
-    <div class="horasAsig">
-      <ion-row *ngFor="let hora of getHoras();" [ngClass]="(hora=='Recreo')?'horasClasesRecreo':'horasClasesRow'">
-        {{hora}}
-        <br/>
-        <ion-label *ngIf="hora!='Recreo'" >{{getSiguienteHora(hora)}}</ion-label>
-      </ion-row>
-    </div>
-    <div class="horasAsig" *ngFor="let dia of getDias()">
-      <ion-row *ngFor="let asig of getAsignaturas(dia)" (click)="getCompleto(asig)" class="horasAsigRow">
-        {{asig}}
-      </ion-row>
-    </div>
-  </div>
-  </ion-grid>
+</ion-grid>
 </ion-content>

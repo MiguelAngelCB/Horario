@@ -1,32 +1,15 @@
 ion-col{
-    background-color: forestgreen;
     border: 2px black solid;
 }
-ion-row{
-    background-color: forestgreen;
+.encabezado,.horas,.recreo{
+    background-color: green;
+    color: white;
+    font-weight: 600;
 }
-.horaClases .horasAsig ion-row{
-    border: 2px black solid;
-    display: block;
-    text-align: center;
-    // line-height: 15px;
-}
-.horaClases{
-    display: flex;
-    text-align: center;
-    
-}
-.horasAsig{
-    width: 100%;
-}
-.horasClasesRow{
-    padding-top: 18px;
-    padding-bottom: 17px;
-}
-.horasClasesRecreo{
-    padding-top: 23px;
-    padding-bottom: 30px;
-}
-.horasAsigRow{
-    padding: 25px 0px 28px;
+.asignaturas{
+    background-color: white;
+    color: black;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-weight: 600;
 }

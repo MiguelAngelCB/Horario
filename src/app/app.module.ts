@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { SqliteDbCopy } from '@ionic-native/sqlite-db-copy/ngx';
+import { DatosService } from './core/services/datos.service';
+import { CopiaService } from './core/services/copia.service';
 
 
 @NgModule({
@@ -18,7 +20,7 @@ import { SqliteDbCopy } from '@ionic-native/sqlite-db-copy/ngx';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
-    SplashScreen,
+    SplashScreen,DatosService,CopiaService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },SqliteDbCopy,SQLite
   ],
   bootstrap: [AppComponent]

@@ -1,43 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DatosService } from '../core/services/datos.service';
 @Component({
   selector: 'app-horario',
   templateUrl: './horario.page.html',
   styleUrls: ['./horario.page.scss'],
 })
 export class HorarioPage implements OnInit {
-  private grupo:string;
-  
-  constructor(public router: Router, private rutaActivada: ActivatedRoute) {
+  public grupo:string;
+  public posicionRecreo:number=3;  
+
+  constructor(public router: Router, private rutaActivada: ActivatedRoute,private datosService:DatosService) {
     this.rutaActivada.queryParams.subscribe((params) => {
-      this.grupo = this.router.getCurrentNavigation().extras.state.grupo;
-    });
+    new Promise((resolve,reject)=>{
+        this.grupo = this.router.getCurrentNavigation().extras.state.grupo;
+        resolve(this.grupo);
+      }).then(
+        (grupo)=>{
+          this.rellenarDatos(grupo.toString());
+        }
+        ).catch();
+      });
   }
   ngOnInit() {
   }
-
   
-  getCompleto(abreviatura:string):void{
-    if (abreviatura!="Recreo") {
-      let nombreCompleto:string="Completo";
-      alert(nombreCompleto);
-    }
+  async rellenarDatos(grupo:string){
+    await this.datosService.rellenarHoras();
+    await this.datosService.rellenarDias();
+    await this.datosService.rellenarHorario(grupo);
+  }
+
+  getCompleto(asignartura):void{
+      alert(asignartura.completo);
   }
   
-  getHoras():Array<string>{
-    let horas:Array<string>=["8:15","9:05","10:00","10:55","11:25","13:15"];
-    this.addRecreo(horas);
+  getHoras(){
+    let horas:any[]=this.datosService.getHoras();
     return horas;
   }
 
-  getDias():Array<string>{
-    return ["Lunes","Martes","Miercoles","Jueves","Viernes"];
+  getDias(){
+    let dias:any[]=this.datosService.getDias()
+    return dias;
   }
 
-  getAsignaturas(dia:string):Array<string>{
-    let asignaturas:Array<string>=["mates","biologia","lengua","lengua","plastica","prueba"];
-    this.addRecreo(asignaturas);
-    return asignaturas;
+  getAsignaturas(index:number){
+    const numDias=5;
+    const inicio:number=index*numDias;
+    const final:number=inicio+numDias;
+    let asignaturas:any[]=Object.create(this.datosService.getHorario());
+    return asignaturas.slice(inicio,final);
   }
 
   getSiguienteHora(hora:string):string{
@@ -56,11 +69,6 @@ export class HorarioPage implements OnInit {
     }
     siguienteHora+=minutos.toString();
     return siguienteHora;
-  }
-
-  addRecreo(array:Array<string>){
-    let recreoPosition=3;
-    array.splice(recreoPosition, 0, "Recreo");
   }
 
 }

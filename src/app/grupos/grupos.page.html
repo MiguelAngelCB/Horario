@@ -12,7 +12,7 @@
   <ion-label>Cursos: {{curso}}</ion-label>
   <br/>
   <br/>
-  <ion-item lines="none" *ngFor="let grupo of getGrupos()" (click)="verHorario(grupo)" class="bg-forest">
-    {{grupo}}
+  <ion-item lines="none" *ngFor="let grupo of getGrupos()" (click)="verHorario(grupo.nombre)" class="bg-forest">
+    {{grupo.nombre}}
   </ion-item>
 </ion-content>

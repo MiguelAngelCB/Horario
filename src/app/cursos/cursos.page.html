@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-item lines="none" *ngFor="let curso of getCursos()" (click)="verGrupos(curso)">
-    {{curso}}
+  <ion-item lines="none" *ngFor="let curso of getCursos()" (click)="verGrupos(curso.nombre)">
+    {{curso.nombre}}
   </ion-item>
 </ion-content>

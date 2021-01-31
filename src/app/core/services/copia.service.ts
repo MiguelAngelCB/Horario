@@ -13,14 +13,12 @@ export class CopiaService {
     return new Promise((resolve,reject)=>{
       this.platform.ready()
       .then(()=>{
-        console.log("copia la plataforma está lista");
         this.sqlDbCopy
-        .copy("Horario16e.db", 0)
+        .copy("Horario16.db", 0)
         .then(() => {
-          console.log("copia copiada correctamente");
+          console.log("copia lista");
         })
         .catch((error) => {
-          console.log("copia fallo al copiar");
           console.log("copia" + JSON.stringify(error));
         });
     }).catch(
